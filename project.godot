@@ -19,6 +19,10 @@ config/name="HF_01"
 run/main_scene="res://Scenes/TestMap.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Scripts/Global.gd"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
