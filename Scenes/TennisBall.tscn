@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Art/Balls/tennis_01_08x08.png" type="Texture" id=1]
+[ext_resource path="res://Art/Balls/tennis_01_12x12.png" type="Texture" id=2]
+[ext_resource path="res://Art/Balls/tennis_01_17x17.png" type="Texture" id=3]
+[ext_resource path="res://Art/Balls/tennis_01_21x21.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="TennisBall" type="Node2D"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ball_Regular" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+
