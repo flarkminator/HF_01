@@ -8,7 +8,8 @@ var RevolutionsPerSecond = 500.0
 
 var velocity = Vector2(30,0)
 var velocity3 = Vector3(5,0,5)
-var acceleration = Vector2(0,0)
+var acceleration = Vector3(0,0,0)
+var ball_height_offset = -3
 var ball_height = 0.0
 var time_in_air = 0.0
 var starting_position
@@ -25,8 +26,8 @@ func _ready():
 #	position.y = position.y + position_delta.y * delta
 #	time_in_air += delta
 #	SetBallHeight(position_delta3.z)
-#
-#
+
+
 #func SetBallHeight(ball_height_delta):
 #	ball_height += ball_height_delta
 #	$Ball_Regular.position.y = -ball_height
@@ -38,12 +39,31 @@ func _ready():
 #		print("change in meters: (", change_in_meters.x, ",", change_in_meters.y, ")")
 #		queue_free()
 
+# Sets the height of the ball above it's shadow, also controls the "size" of the ball as it goes up and down.
+# The ball never actually leaves the ground, however. It's faked.
+func set_ball_height(ball_height_delta):
+	ball_height += ball_height_delta
+	if ball_height < 0:
+		ball_height = 0
+	
+	$Ball_Regular.position.y = - Global.MeterToPixel1(ball_height) + ball_height_offset
+	if ball_height > 3:
+		$Ball_Regular.frame = 3
+		print("I am getting here")
+	elif ball_height > 2:
+		$Ball_Regular.frame = 2
+	elif ball_height > 1:
+		$Ball_Regular.frame = 1
+	else:
+		$Ball_Regular.frame = 0
+
+
 # Moves the ball in the world by the number of specified meters. Must be convereted into Pixels.
 func move_ball(meters : Vector3):
 	var meters_in_pixels = Global.MeterToPixel(meters)
 	position.x += meters_in_pixels.x
 	position.y += meters_in_pixels.y
-	position.y -= meters_in_pixels.z
+	set_ball_height(meters.z)
 
 func GetDragCoefficient() -> float:
 	return CalculateDragCoefficientForGivenSpeed(velocity.length())

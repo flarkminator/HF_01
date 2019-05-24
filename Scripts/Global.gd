@@ -9,6 +9,8 @@ var meter2pixel_scalar = cos(angle_of_tileMap)
 var Gravity = -9.8 # m/s^2
 var AirDensity = 1.21 # kg/m^3
 
+func MeterToPixel1(Meters) -> float:
+	return Meters * PixelsPerMeter
 
 func MeterToPixel(Meters : Vector3) -> Vector3:
 	var newX = (Meters.x * PixelsPerMeter) * meter2pixel_scalar
@@ -18,8 +20,8 @@ func MeterToPixel(Meters : Vector3) -> Vector3:
 	var newZ = (Meters.z * PixelsPerMeter)
 	return Vector3(newX, newY, newZ)
 
-func PixelToMeter(Pixels: Vector3) -> Vector3:
-	return Vector3(0, 0, 0)
+func PixelToMeter1(Pixels) -> float:
+	return (Pixels / PixelsPerMeter)
 
 # Formula for the Magnus Force is Fm = CoefficientForLift / 2 * SurfaceArea * DensityOfMedium * Velocity^2
 # The force is perpindicular to the forward vector; vertical for backspin, downwards for topspin
