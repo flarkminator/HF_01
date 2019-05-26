@@ -28,17 +28,6 @@ func _ready():
 #	SetBallHeight(position_delta3.z)
 
 
-#func SetBallHeight(ball_height_delta):
-#	ball_height += ball_height_delta
-#	$Ball_Regular.position.y = -ball_height
-#	if ball_height <= 0:
-#		print("Time in the air: ", time_in_air)
-#		print("Final position: (", position.x, ",", position.y, ")")
-#		print("change position: (", position.x - starting_position.x, ",", position.y - starting_position.y, ")")
-#		var change_in_meters = Global.PixelToMeter(Vector2(position.x - starting_position.x, -(position.y - starting_position.y)))
-#		print("change in meters: (", change_in_meters.x, ",", change_in_meters.y, ")")
-#		queue_free()
-
 # Sets the height of the ball above it's shadow, also controls the "size" of the ball as it goes up and down.
 # The ball never actually leaves the ground, however. It's faked.
 func set_ball_height(ball_height_delta):
@@ -49,7 +38,6 @@ func set_ball_height(ball_height_delta):
 	$Ball_Regular.position.y = - Global.MeterToPixel1(ball_height) + ball_height_offset
 	if ball_height > 3:
 		$Ball_Regular.frame = 3
-		print("I am getting here")
 	elif ball_height > 2:
 		$Ball_Regular.frame = 2
 	elif ball_height > 1:
@@ -65,11 +53,14 @@ func move_ball(meters : Vector3):
 	position.y += meters_in_pixels.y
 	set_ball_height(meters.z)
 
+
 func GetDragCoefficient() -> float:
 	return CalculateDragCoefficientForGivenSpeed(velocity.length())
 
+
 func GetLiftCoefficient() -> float:
 	return CalculateLiftCoefficientForGivenSpeed(velocity.length())
+
 
 # The actual drag coefficient for an object is altered by the relationship between it's velocity and angular velocity
 func CalculateDragCoefficientForGivenSpeed(velocity):
@@ -78,12 +69,14 @@ func CalculateDragCoefficientForGivenSpeed(velocity):
 	NewDrag = DragCoefficient + 1 / pow(22.5 + 4.2 * pow(velocity / AngularVelocity,2.5),0.4)
 	return NewDrag
 
+
 # The Coefficient of Lift is driven by the relationship between velocity and angular velocity
 func CalculateLiftCoefficientForGivenSpeed(velocity):
 	var NewLift = 0.0
 	var AngularVelocity = GetAngularVelocityForRevolutions(RevolutionsPerSecond)
 	NewLift = 1 / (2 + velocity / AngularVelocity)
 	return NewLift
+
 
 # Takes the Revolutions Per Second (in radians) and returns the angular velocity in Meters per Second
 func GetAngularVelocityForRevolutions(RevolutionsPerSecond) -> float:

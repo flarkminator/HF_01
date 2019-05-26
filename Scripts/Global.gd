@@ -13,11 +13,11 @@ func MeterToPixel1(Meters) -> float:
 	return Meters * PixelsPerMeter
 
 func MeterToPixel(Meters : Vector3) -> Vector3:
-	var newX = (Meters.x * PixelsPerMeter) * meter2pixel_scalar
-	var newY = - (Meters.x * PixelsPerMeter) * meter2pixel_scalar / 2
-	newX += (Meters.y * PixelsPerMeter) * meter2pixel_scalar
-	newY +=  (Meters.y * PixelsPerMeter) * meter2pixel_scalar / 2
-	var newZ = (Meters.z * PixelsPerMeter)
+	var newX = round((Meters.x * PixelsPerMeter) * meter2pixel_scalar)
+	var newY =  round(- (Meters.x * PixelsPerMeter) * meter2pixel_scalar / 2)
+	newX += round((Meters.y * PixelsPerMeter) * meter2pixel_scalar)
+	newY +=  round((Meters.y * PixelsPerMeter) * meter2pixel_scalar / 2)
+	var newZ = round(Meters.z * PixelsPerMeter)
 	return Vector3(newX, newY, newZ)
 
 func PixelToMeter1(Pixels) -> float:
