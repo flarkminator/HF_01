@@ -1,8 +1,10 @@
 extends Node
 #warning-ignore-all:unused_class_variable
 
+var PixelsPerTile_x = 64
+var PixelsPerTile_y = 32
 var PixelsPerMeter = 26.095
-#var PixelsPerMeter = 35.777
+
 var angle_of_tileMap = deg2rad(26.57) # from degrees into radians
 var meter2pixel_scalar = cos(angle_of_tileMap)
 
@@ -32,4 +34,3 @@ func CalculateMagnusScalar(LiftCoefficient, SurfaceArea, Velocity):
 # The force is always in direct opposition to the forward vector
 func CalculateDragScalar(DragCoefficient, SurfaceArea, Velocity):
 	pass
-
