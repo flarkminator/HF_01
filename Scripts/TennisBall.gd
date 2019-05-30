@@ -1,4 +1,5 @@
 extends Node2D
+#warning-ignore-all:unused_class_variable
 
 var DragCoefficient = 0.55 # Scalar
 var Mass = 0.055 # kg
@@ -6,9 +7,8 @@ var Radius = 0.033 # Meters
 var Circumfrence = 0.003421194 # Meters^2
 var RevolutionsPerSecond = 500.0
 
-var velocity = Vector2(30,0)
-var velocity3 = Vector3(5,0,5)
-var acceleration = Vector3(0,0,0)
+var velocity = Vector3(5,0,5)
+var acceleration = Vector3(0,0,Global.Gravity)
 var ball_height_offset = -3
 var ball_height = 0.0
 var time_in_air = 0.0

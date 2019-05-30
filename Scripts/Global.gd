@@ -1,5 +1,6 @@
 extends Node
 #warning-ignore-all:unused_class_variable
+#warning-ignore-all:unused_argument
 
 var PixelsPerTile_x = 64
 var PixelsPerTile_y = 32

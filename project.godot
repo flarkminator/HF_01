@@ -22,11 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://Scripts/Global.gd"
-
-[display]
-
-window/size/width=2048
-window/size/height=1200
+GM_Match="*res://Scripts/GM_Match.gd"
 
 [input]
 

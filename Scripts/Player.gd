@@ -1,8 +1,9 @@
 extends Node2D
 
+signal serve_ball(location, direction)
+
 func _ready():
 	pass
-
 
 
 func _input(event):
@@ -14,6 +15,8 @@ func _input(event):
 		move_by(Vector2(0, 1))
 	if Input.is_action_just_pressed("ui_left"):
 		move_by(Vector2(0, -1))
+	if Input.is_action_just_pressed("ui_spawnball"):
+		emit_signal("serve_ball", position, Vector3(5, 0, 5))
 
 func move_by(num_steps : Vector2):
 	var xPixels = num_steps.x * Global.PixelsPerTile_x / 2 + num_steps.y * Global.PixelsPerTile_x / 2
