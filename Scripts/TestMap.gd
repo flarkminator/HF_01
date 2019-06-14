@@ -10,10 +10,18 @@ func _ready():
 	player.connect("serve_ball", self, "_on_Player_serve_ball")
 
 func _on_Player_serve_ball(location, direction):
+#	print("Yes, receiving serve signal")
+#	tennis_ball = GM_Match.get_ball()
+#	tennis_ball.position = location
+#	tennis_ball.velocity = direction
+#	tennis_ball.reset_ball_height_to(direction.y)
+#	if not self.has_node("TennisBall"):
+#		add_child(tennis_ball)
+	
 	print("Yes, receiving serve signal")
-	tennis_ball = GM_Match.get_ball()
-	tennis_ball.position = location
-	tennis_ball.velocity = direction
-	if not self.has_node("TennisBall"):
-		add_child(tennis_ball)
+	var new_tennis_ball = GM_Match.get_ball()
+	new_tennis_ball.position = location
+	new_tennis_ball.velocity = direction
+	new_tennis_ball.reset_ball_height_to(direction.y)
+	add_child(new_tennis_ball)
 

@@ -4,8 +4,8 @@
 # That logic is handled by this game mode.
 extends Node
 
-
-var _tennis_ball = preload("res://Scenes/TennisBall.tscn").instance()
+var _tennis_ball_asset = preload("res://Scenes/TennisBall.tscn")
+var _tennis_ball = _tennis_ball_asset.instance()
 var _player = preload("res://Scenes/Player.tscn").instance()
 
 var time_step = 0.01 # In seconds
@@ -13,7 +13,7 @@ var time_step = 0.01 # In seconds
 
 
 func get_ball():
-	return _tennis_ball
+	return _tennis_ball_asset.instance()
 
 func get_player():
 	return _player
