@@ -35,3 +35,9 @@ func CalculateMagnusScalar(LiftCoefficient, SurfaceArea, Velocity):
 # The force is always in direct opposition to the forward vector
 func CalculateDragScalar(DragCoefficient, SurfaceArea, Velocity):
 	pass
+
+func is_float_close_to_zero(value : float) -> bool:
+	return true if value < 0.0001 else false
+
+func is_vector_close_to_zero(values : Vector3) -> bool:
+	return true if (is_float_close_to_zero(values.x) && is_float_close_to_zero(values.y) && is_float_close_to_zero(values.z)) else false 

@@ -16,13 +16,21 @@ var ball_height = 0.0
 var time_in_air = 0.0
 var starting_position
 
+
 func _ready():
 	print("Starting position: (", position.x, ",", position.y, ")")
 	starting_position = position
 
+
 func _process(delta):
 	update_velocity(delta)
-	move_ball(velocity, delta)
+	move_ball(delta)
+	set_ball_frame()
+
+
+func clean_up():
+	queue_free()
+
 
 func reset_ball_height_to(new_ball_height):
 	ball_height = new_ball_height
@@ -31,31 +39,45 @@ func reset_ball_height_to(new_ball_height):
 	
 	$Ball_Regular.position.y = ball_height_offset
 
+
 # Sets the height of the ball above it's shadow, also controls the "size" of the ball as it goes up and down.
 # The ball never actually leaves the ground, however. It's faked.
 func set_ball_height(ball_height_delta):
 	ball_height += ball_height_delta
 	if ball_height < 0:
-		ball_height = 0
-	
+		# Should we bounce?
+		if abs(velocity.z) < 0.001: # Slow enough to just stop
+			ball_height = 0
+		else: # we should bounce
+			velocity.z = -velocity.z
+			velocity = velocity * 0.5
+			ball_height = -ball_height * 0.75
+
+
+# Moves the ball in the world by the number of specified meters. Must be convereted into Pixels.
+# Before it does anything, though, it must see if the ball has bounced.
+# If the ball has "bounced" then it adjusts the velocity accordingly.
+func move_ball(delta_time):
+	previous_delta = velocity * delta_time
+	set_ball_height(velocity.z * delta_time)
+	var meters_in_pixels = Global.MeterToPixel(velocity)
+	position.x += meters_in_pixels.x * delta_time
+	position.y += meters_in_pixels.y * delta_time
+
+
+# Sets the frame of animation for the ball based upon it's height above the court.
+# Also sets the height of the "ball" above it's shadow.
+func set_ball_frame():
 	$Ball_Regular.position.y = - Global.MeterToPixel1(ball_height) + ball_height_offset
-	if ball_height > 3:
+	if ball_height > 6:
 		$Ball_Regular.frame = 3
-	elif ball_height > 2:
+	elif ball_height > 4:
 		$Ball_Regular.frame = 2
-	elif ball_height > 1:
+	elif ball_height > 2:
 		$Ball_Regular.frame = 1
 	else:
 		$Ball_Regular.frame = 0
 
-
-# Moves the ball in the world by the number of specified meters. Must be convereted into Pixels.
-func move_ball(meters : Vector3, delta_time):
-	var meters_in_pixels = Global.MeterToPixel(meters)
-	previous_delta = meters * delta_time
-	position.x += meters_in_pixels.x * delta_time
-	position.y += meters_in_pixels.y * delta_time
-	set_ball_height(meters.z * delta_time)
 
 # We update the velocity by a fraction of the acceleration. To do this we have to first calculate the acceleration
 # Which is based upon the drag forces of the ball in flight. Which is determiend by it's angular rotation (lift)
@@ -74,7 +96,8 @@ func update_velocity(delta_time):
 	acceleration = acceleration / mass
 	acceleration.z = acceleration.z + Global.Gravity
 	velocity = velocity + acceleration * delta_time
-	
+	if Global.is_vector_close_to_zero(velocity):
+		clean_up()
 
 
 # flight angle = arctan (change in y / change in x)
@@ -122,4 +145,3 @@ func get_mass() -> float:
 
 func get_radius() -> float:
 	return circumfrence
-
