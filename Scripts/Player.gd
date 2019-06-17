@@ -2,13 +2,14 @@ extends Node2D
 
 signal serve_ball(location, direction)
 
-var launch_pitch = 20 # Degrees pitch
-var launch_yaw = 0 # Degrees yaw
+var launch_pitch = deg2rad(20) # Degrees pitch
+var launch_yaw = deg2rad(0) # Degrees yaw
 var launch_power = 20 # Meters per second
 var launch_vector = Vector3(
-		launch_power * cos(deg2rad(launch_pitch)),
-		0,
-		launch_power * sin(deg2rad(launch_pitch)))
+		cos(launch_pitch)*cos(launch_yaw),
+		cos(launch_pitch)*sin(launch_yaw),
+		sin(launch_pitch)
+		) * launch_power
 
 func _ready():
 	pass
