@@ -5,11 +5,11 @@ var DragCoefficient = 0.55 # Scalar
 var mass = 0.055 # kg
 var radius = 0.033 # Meters
 var circumfrence = 0.003421194 # Meters^2
-var is_top_spin := true
+var is_top_spin := false
 var revolutions_per_second = 500.0
 
-var velocity = Vector3(5,0,5)
-var acceleration = Vector3(0,0,Global.Gravity)
+var velocity = Vector3(0,0,0)
+var acceleration = Vector3(0,0,0)
 var polar_pitch = 0
 var polar_yaw = 0
 var previous_delta = Vector3(0,0,0)
@@ -71,9 +71,9 @@ func move_ball(delta_time):
 # Also sets the height of the "ball" above it's shadow.
 func set_ball_frame():
 	$Ball_Regular.position.y = - Global.MeterToPixel1(ball_height) + ball_height_offset
-	if ball_height > 6:
+	if ball_height > 10:
 		$Ball_Regular.frame = 3
-	elif ball_height > 4:
+	elif ball_height > 5:
 		$Ball_Regular.frame = 2
 	elif ball_height > 2:
 		$Ball_Regular.frame = 1
@@ -94,14 +94,27 @@ func update_velocity(delta_time):
 	var square_velocity = velocity.length_squared()
 	var drag_scalar = get_drag_coefficient() * circumfrence * Global.AirDensity / 2 * square_velocity
 	var lift_scalar = get_lift_coefficient() * circumfrence * Global.AirDensity / 2 * square_velocity
-	var flight_angle = calculate_flight_angle()
-	var drag_angle = flight_angle + PI
-	var lift_angle = (flight_angle + PI/2) if not is_top_spin else (flight_angle + PI + PI/2)
-	var acceleration = Vector3(
-			drag_scalar * cos(drag_angle) + lift_scalar * cos(lift_angle),     # Acceleration in the X direction (down court)
-			0,     # Y direction
-			drag_scalar * sin(drag_angle) + lift_scalar * sin(lift_angle))     # Z direction (up)
-	acceleration = acceleration / mass
+	
+	# Computes the polar coordinate angles based upon the current velocity
+	calculate_flight_angle()
+	
+	var drag_angle_pitch = polar_pitch + PI
+	var drag_angle_yaw = polar_yaw + PI
+	var lift_angle_pitch = (polar_pitch + PI/2) if not is_top_spin else (polar_pitch + PI + PI/2)
+	var lift_angle_yaw = 0 #(polar_yaw + PI/2) if not is_top_spin else (polar_yaw + PI + PI/2)
+	
+	var accelaration_from_drag = Vector3(
+			drag_scalar * cos(drag_angle_pitch) + drag_scalar * cos(drag_angle_yaw),
+			drag_scalar * sin(drag_angle_yaw),
+			drag_scalar * sin(drag_angle_pitch)
+			)
+	
+#	var acceleration = Vector3(
+#			drag_scalar * cos(drag_angle) + lift_scalar * cos(lift_angle),     # Acceleration in the X direction (down court)
+#			0,     # Y direction
+#			drag_scalar * sin(drag_angle) + lift_scalar * sin(lift_angle))     # Z direction (up)
+	accelaration_from_drag = accelaration_from_drag / mass
+	acceleration = accelaration_from_drag
 	acceleration.z = acceleration.z + Global.Gravity
 	velocity = velocity + acceleration * delta_time
 	if Global.is_vector_close_to_zero(velocity):
@@ -111,12 +124,12 @@ func update_velocity(delta_time):
 
 # flight angle = arctan (change in y / change in x)
 func calculate_flight_angle():
-	var flight_angle = 0
 	if previous_delta.x == 0:
-		flight_angle = atan(velocity.z / velocity.x)
+		polar_pitch = PI/2 - atan2(sqrt(pow(velocity.x,2) + pow(velocity.y,2)), velocity.z)
+		polar_yaw = atan2(velocity.y, velocity.x)
 	else:
-		flight_angle = atan(previous_delta.z / previous_delta.x)
-	return flight_angle
+		polar_pitch = PI/2 - atan2(sqrt(pow(previous_delta.x,2) + pow(previous_delta.y,2)), previous_delta.z)
+		polar_yaw = atan2(previous_delta.y, previous_delta.x)
 
 
 func get_drag_coefficient() -> float:
