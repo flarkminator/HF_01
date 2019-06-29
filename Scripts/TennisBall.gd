@@ -12,7 +12,6 @@ var velocity = Vector3(0,0,0)
 var acceleration = Vector3(0,0,0)
 var polar_pitch = 0
 var polar_yaw = 0
-var previous_delta = Vector3(0,0,0)
 var ball_height_offset = -3
 var ball_height = 0.0
 var time_in_air = 0.0
@@ -60,7 +59,6 @@ func set_ball_height(ball_height_delta):
 # Before it does anything, though, it must see if the ball has bounced.
 # If the ball has "bounced" then it adjusts the velocity accordingly.
 func move_ball(delta_time):
-	previous_delta = velocity * delta_time
 	set_ball_height(velocity.z * delta_time)
 	var meters_in_pixels = Global.MeterToPixel(velocity)
 	position.x += meters_in_pixels.x * delta_time
@@ -80,12 +78,6 @@ func set_ball_frame():
 	else:
 		$Ball_Regular.frame = 0
 
-
-#var launch_vector = Vector3(
-#		cos(launch_pitch)*cos(launch_yaw),
-#		cos(launch_pitch)*sin(launch_yaw),
-#		sin(launch_pitch)
-#		) * launch_power
 
 # We update the velocity by a fraction of the acceleration. To do this we have to first calculate the acceleration
 # which is based upon the drag forces of the ball in flight. This is determiend by it's angular rotation (lift)
@@ -109,12 +101,15 @@ func update_velocity(delta_time):
 			drag_scalar * sin(drag_angle_pitch)
 			)
 	
-#	var acceleration = Vector3(
-#			drag_scalar * cos(drag_angle) + lift_scalar * cos(lift_angle),     # Acceleration in the X direction (down court)
-#			0,     # Y direction
-#			drag_scalar * sin(drag_angle) + lift_scalar * sin(lift_angle))     # Z direction (up)
+	var acceleration_from_lift = Vector3(
+			lift_scalar * cos(lift_angle_pitch) + lift_scalar * cos(lift_angle_yaw),
+			lift_scalar * sin(lift_angle_yaw),
+			lift_scalar * sin(lift_angle_pitch)
+			)
+
 	accelaration_from_drag = accelaration_from_drag / mass
-	acceleration = accelaration_from_drag
+	acceleration_from_lift = acceleration_from_lift / mass
+	acceleration = accelaration_from_drag + acceleration_from_lift
 	acceleration.z = acceleration.z + Global.Gravity
 	velocity = velocity + acceleration * delta_time
 	if Global.is_vector_close_to_zero(velocity):
@@ -122,14 +117,10 @@ func update_velocity(delta_time):
 
 
 
-# flight angle = arctan (change in y / change in x)
+# Uses the arctangent to determine our angles of flight with the current velocity
 func calculate_flight_angle():
-	if previous_delta.x == 0:
-		polar_pitch = PI/2 - atan2(sqrt(pow(velocity.x,2) + pow(velocity.y,2)), velocity.z)
-		polar_yaw = atan2(velocity.y, velocity.x)
-	else:
-		polar_pitch = PI/2 - atan2(sqrt(pow(previous_delta.x,2) + pow(previous_delta.y,2)), previous_delta.z)
-		polar_yaw = atan2(previous_delta.y, previous_delta.x)
+	polar_pitch = PI/2 - atan2(sqrt(pow(velocity.x,2) + pow(velocity.y,2)), velocity.z)
+	polar_yaw = atan2(velocity.y, velocity.x)
 
 
 func get_drag_coefficient() -> float:

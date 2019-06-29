@@ -25,8 +25,8 @@ func _input(event):
 	if Input.is_action_just_pressed("ui_left"):
 		move_by(Vector2(0, -1))
 	if Input.is_action_just_pressed("ui_spawnball"):
-		launch_yaw = deg2rad(rand_range(-0,10))
-		launch_pitch = deg2rad(rand_range(5,15))
+		launch_yaw = deg2rad(rand_range(-5,5))
+		launch_pitch = deg2rad(rand_range(10,10))
 		launch_power = 30
 		var launch_vector = Vector3(
 				cos(launch_yaw) * cos(launch_pitch),

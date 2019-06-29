@@ -23,5 +23,6 @@ func _on_Player_serve_ball(location, direction):
 	new_tennis_ball.position = location
 	new_tennis_ball.velocity = direction
 	new_tennis_ball.reset_ball_height_to(0)
+	new_tennis_ball.is_top_spin = true if( randi() % 2 == 0 ) else false
 	add_child(new_tennis_ball)
 
