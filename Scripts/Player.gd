@@ -1,6 +1,7 @@
 extends Node2D
 
 signal serve_ball(location, direction)
+signal action_menu()
 
 var launch_pitch = deg2rad(25) # Degrees pitch
 var launch_yaw = deg2rad(5) # Degrees yaw
@@ -24,6 +25,8 @@ func _input(event):
 		move_by(Vector2(0, 1))
 	if Input.is_action_just_pressed("ui_left"):
 		move_by(Vector2(0, -1))
+	if Input.is_action_just_pressed("ui_accept"):
+		emit_signal("action_menu")
 	if Input.is_action_just_pressed("ui_spawnball"):
 		launch_yaw = deg2rad(rand_range(-5,5))
 		launch_pitch = deg2rad(rand_range(10,10))
