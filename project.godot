@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 Global="*res://Scripts/Global.gd"
 GM_Match="*res://Scripts/GM_Match.gd"
+Global_SceneLoader="*res://Scripts/Global_SceneLoader.gd"
 
 [display]
 

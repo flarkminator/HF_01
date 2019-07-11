@@ -3,48 +3,92 @@
 # Time in this game only moves forward when you take actions (like swinging at the ball, or moving around the court).
 # That logic is handled by this game mode.
 extends Node
+#warning-ignore-all:unused_class_variable
+#warning-ignore-all:return_value_discarded
+#warning-ignore-all:unused_argument
 
 var _tennis_ball_asset = preload("res://Scenes/TennisBall.tscn")
-var _map = preload("res://Scenes/TestMap.tscn")
 var _tennis_ball = _tennis_ball_asset.instance()
 var _player = preload("res://Scenes/Player.tscn").instance()
+var _opponent = ""
+var _map = ""
 
 var time_step = 0.01 # In seconds
 
+
 func _ready():
-	_player.connect("action_menu", self, "_on_Player_action_menu")
+	pass
+
 
 func get_ball():
 	return _tennis_ball_asset.instance()
 
+
 func get_player():
 	return _player
+
 
 #warning-ignore:unused_argument
 func move_time_forward(delta):
 	pass
 
-func _on_Player_action_menu():
-	print("Action!")
 
+func new_match(level, opponent):
+	"""
+	This function sets all the local variables, which are used to eventually
+	load in the proper assets for this match.
+	
+	The complication is that 'goto_scene' is a DEFERRED CALL, so we have to
+	wait for that root scene to communicate back to this global
+	context before we can really begin loading in the court level.	
+	"""
+	
+	# Load the root scene (this should lock the main thread until it's done loading?)
+	Global_SceneLoader.goto_scene_path("res://Scenes/Courts/CourtRoot.tscn")
+	
+	# Set the opponent
+	_opponent = opponent
+	
+	# Set the map to eventually load
+	_map = level
 
-# Handles all the functionality related to loading into a match, playing it's intro, and capturing
-# match relalted events. Also handles pausing the match, when menus popup.
-func match_load(level, opponent) -> bool:
-	get_tree().change_scene_to(_map)
-	return true
-
-func match_intro():
-	pass
-
-func match_start():
-	pass
 
 func match_loop():
-	pass
+	"""
+	First the match plays its intro. Once that is done, it enters the main loop.
+	When the match is 'finished' it sets the proper variables and begins the
+	end match flow.
+	"""
+	match_intro()
+	print("match loop")
+	match_end()
+
+
+func match_intro():
+	print("match intro")
+
+
+func match_start():
+	"""
+	The start of a match is where we load in all of the actual assets for this
+	match. We can assume the 'root court scene' has already been loaded, as it
+	is the one that calls this function.
+	A match has a single root scene that is shared by all matches. Under this
+	scene we load, as children, the art and gameplay assets. This is done
+	because most 'tennis courts' share a bunch of similar gameplay features
+	and this allows them all to share a common root scene.
+	"""
+	
+	# Load in the actual art level.
+	var current_scene = get_tree().current_scene
+	current_scene.add_child_below_node(current_scene.get_node("Level_Container"), load(_map).instance())
+	print("match start")
+	match_loop()
+
 
 func match_pause():
-	pass
+	print("match has been paused")
+
 
 func match_end():
-	pass
+	print("Match end!")

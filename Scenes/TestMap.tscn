@@ -17,6 +17,9 @@ tile_data = PoolIntArray( -655344, 13, 0, -655343, 13, 0, -655342, 13, 0, -65534
 [node name="SpawnPoint_Player" type="Node2D" parent="."]
 position = Vector2( 256, 400 )
 
+[node name="SpawnPoint_Opponent" type="Node2D" parent="."]
+position = Vector2( 800, 128 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 512, 300 )
 current = true

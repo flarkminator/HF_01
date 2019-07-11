@@ -1,13 +1,20 @@
 extends Node2D
+#warning-ignore-all:unused_class_variable
 
 var player
+var opponent
 var tennis_ball
+
+signal SIG_map_ready
 
 func _ready():
 	player = GM_Match.get_player()
 	player.position = $SpawnPoint_Player.position
 	add_child(player)
 	player.connect("serve_ball", self, "_on_Player_serve_ball")
+	print("test map ready done")
+	emit_signal("SIG_map_ready")
+
 
 func _on_Player_serve_ball(location, direction):
 #	print("Yes, receiving serve signal")
