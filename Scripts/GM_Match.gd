@@ -51,7 +51,9 @@ func new_match(level, opponent):
 	_map = level
 	_match_done = false
 
-	# Request the root scene to be loaded, and then wait for it to be loaded
+	# "goto_scene__" is a deferred function call, so we have no idea when it
+	# will actually be called.
+	# @see Global_SceneLoader to see where the signal "scene_set_as_current" is sent
 	Global_SceneLoader.goto_scene_packed(_root_scene)
 	yield(Global_SceneLoader, "scene_set_as_current")
 	
@@ -62,8 +64,8 @@ func new_match(level, opponent):
 func match_load_assets():
 	"""
 	This is where we load in all of the actual assets for this
-	match. We can assume the 'root court scene' has already been loaded, as it
-	is the one that calls this function.
+	match. We can assume the 'root court scene' has already been loaded.
+	
 	A match has a single root scene that is shared by all matches. Under this
 	scene we load, as children, the art and gameplay assets. This is done
 	because most 'tennis courts' share a bunch of similar gameplay features
@@ -71,8 +73,13 @@ func match_load_assets():
 	"""
 	
 	# Load in the actual art level.
-	var level_container_node = get_tree().current_scene.get_node("Level_Container")
+	var current_scene = get_tree().current_scene
+	var level_container_node = current_scene.get_node("Level_Container")
 	level_container_node.add_child(load(_map).instance())
+	
+	var spawn_point_node = current_scene.find_node("SpawnPoint_Player")
+	spawn_point_node.add_child(_player)
+
 	print("match assets loaded")
 
 
@@ -83,8 +90,8 @@ func match_loop():
 	end match flow.
 	"""
 	match_intro()
-	
 	yield(self, "match_intro_finished")
+	
 	while not _match_done:
 		print("match loop")
 		yield(get_tree().create_timer(5.0), "timeout")
