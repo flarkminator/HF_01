@@ -7,14 +7,23 @@ extends Node
 #warning-ignore-all:return_value_discarded
 #warning-ignore-all:unused_argument
 
+# Tennis Ball Variables
 var _tennis_ball_asset = preload("res://Scenes/TennisBall.tscn")
 var _tennis_ball = _tennis_ball_asset.instance()
+
+# Player Variables
 var _player = preload("res://Scenes/Player.tscn").instance()
-var _root_scene = preload("res://Scenes/Courts/CourtRoot.tscn")
+var _nav_mesh_player_position = Vector2(9, 7)
+var _nav_mesh_opponent_position = Vector2(5, 5)
+var _nav_mesh_length = 10
+var _nav_mesh_width = 8
+var _nav_mesh_starting_position = Vector2(0, 0)
 var _opponent = ""
+
+# Match Variables
+var _root_scene = preload("res://Scenes/Courts/CourtRoot.tscn")
 var _map = ""
 var _match_done = false
-
 var time_step = 0.01 # In seconds
 
 signal match_intro_finished()
@@ -77,8 +86,13 @@ func match_load_assets():
 	var level_container_node = current_scene.get_node("Level_Container")
 	level_container_node.add_child(load(_map).instance())
 	
+	# Load in the player, and position them onto the "NAV MESH"
+	var gameplay_container_node = current_scene.get_node("Gameplay_Container")
 	var spawn_point_node = current_scene.find_node("SpawnPoint_Player")
-	spawn_point_node.add_child(_player)
+	_nav_mesh_starting_position = spawn_point_node.position
+	_player.position = Global.steps_to_pixels(_nav_mesh_player_position, Vector2(_nav_mesh_starting_position.x + Global.PixelsPerTile_x / 2, _nav_mesh_starting_position.y))
+#	_player.position = Vector2(_nav_mesh_starting_position.x + Global.PixelsPerTile_x/2, _nav_mesh_starting_position.y)
+	gameplay_container_node.add_child(_player)
 
 	print("match assets loaded")
 
@@ -116,3 +130,4 @@ func match_pause():
 
 func match_end():
 	print("Match end!")
+
