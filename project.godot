@@ -16,14 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="HF_01"
-run/main_scene="res://Scenes/Interfaces/TitleScreen.tscn"
+run/main_scene="res://content/interface/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://Scripts/Global.gd"
-GM_Match="*res://Scripts/GM_Match.gd"
-Global_SceneLoader="*res://Scripts/Global_SceneLoader.gd"
+Global="*res://utils/Global.gd"
+GM_Match="*res://utils/GM_Match.gd"
+Global_SceneLoader="*res://utils/Global_SceneLoader.gd"
 
 [display]
 
