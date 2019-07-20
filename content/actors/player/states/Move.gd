@@ -11,9 +11,27 @@ All state have the following functions:
 """
 
 
-func enter():
+func enter(controller):
+	if Input.is_action_just_pressed("ui_up"):
+		controller.move_by(Vector2(1, 0))
+	if Input.is_action_just_pressed("ui_down"):
+		controller.move_by(Vector2(-1, 0))
+	if Input.is_action_just_pressed("ui_right"):
+		controller.move_by(Vector2(0, 1))
+	if Input.is_action_just_pressed("ui_left"):
+		controller.move_by(Vector2(0, -1))
+	
 	print("MOVE STATE: Enter")
+	emit_signal("finished", "idle")
 
 
+
+
+#warning-ignore:unused_argument
 func handle_input(event):
 	print("MOVE STATE: input")
+
+
+
+func exit():
+	print("MOVE STATE: Exit")

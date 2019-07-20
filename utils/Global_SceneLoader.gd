@@ -4,23 +4,25 @@ signal scene_instanced( scene )
 signal scene_set_as_current()
 
 
+#warning-ignore:unused_argument
 func goto_scene_path(target_scene_path, params = null):
 	"""
 	This loads a scene based upon it's reletive path
 	We must call this deferred, as the current scene will be deleted and it
 	might be running code
 	"""
-	call_deferred("_deferred_goto", target_scene_path, params, "_get_node_from_path")
+	call_deferred("_deferred_goto", target_scene_path, "_get_node_from_path")
 
 
+#warning-ignore:unused_argument
 func goto_scene_packed(target_scene_pak, params = null):
 	"""
 	This loads a packed scene. It defers the call.
 	"""
-	call_deferred("_deferred_goto", target_scene_pak, params, "_get_node_from_pack")
+	call_deferred("_deferred_goto", target_scene_pak, "_get_node_from_pack")
 
 
-func _deferred_goto(target, params, get_node_function):
+func _deferred_goto(target, get_node_function):
 	"""
 	The steps to this function are as follows:
 		1. If target is null, delete current scene and bail

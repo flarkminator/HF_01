@@ -3,10 +3,12 @@ This is the interface for all States. This class doesn't do anything except
 define the methods that all state must implement.
 """
 extends Node
+#warning-ignore-all:unused_argument
 
+#warning-ignore:unused_signal
 signal finished(next_state)
 
-func enter():
+func enter(controller): # having access to the attached player can be useful, for certain states
 	return
 
 func exit():
@@ -16,7 +18,4 @@ func handle_input(event):
 	return
 
 func update(delta):
-	return
-
-func _on_animation_finished(anim_name):
 	return

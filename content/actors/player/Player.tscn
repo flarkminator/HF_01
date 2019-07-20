@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://content/actors/player/PlayerController.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://content/actors/player/PlayerStateMachine.gd" type="Script" id=3]
+[ext_resource path="res://content/actors/player/states/Idle.gd" type="Script" id=4]
+[ext_resource path="res://content/actors/player/states/Move.gd" type="Script" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -30,12 +33,16 @@ scale = Vector2( 0.5, 1 )
 frames = SubResource( 1 )
 
 [node name="PlayerStateMachine" type="Node" parent="."]
+script = ExtResource( 3 )
+active = true
 
-[node name="Waiting" type="Node" parent="PlayerStateMachine"]
-
-[node name="Cinematic" type="Node" parent="PlayerStateMachine"]
+[node name="Idle" type="Node" parent="PlayerStateMachine"]
+script = ExtResource( 4 )
 
 [node name="Move" type="Node" parent="PlayerStateMachine"]
+script = ExtResource( 5 )
+
+[node name="Cinematic" type="Node" parent="PlayerStateMachine"]
 
 [node name="ActionMenu" type="Node" parent="PlayerStateMachine"]
 

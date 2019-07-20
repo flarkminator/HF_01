@@ -11,12 +11,17 @@ All state have the following functions:
 """
 
 
-func enter():
+#warning-ignore:unused_argument
+func enter(controller):
 	print("IDLE STATE: Enter")
 
 
 func handle_input(event):
 	print("IDLE STATE: input")
+	if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down") \
+	or event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
+		emit_signal("finished", "move")
+		get_tree().set_input_as_handled()
 
 
 func exit():

@@ -38,6 +38,7 @@ func set_active(value):
 
 
 func _unhandled_input(event):
+	print("StateMachine._unhandled_input()")
 	current_state.handle_input(event)
 
 

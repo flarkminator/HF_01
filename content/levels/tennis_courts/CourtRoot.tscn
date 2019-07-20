@@ -1,9 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://content/levels/tennis_courts/CourtRoot.gd" type="Script" id=1]
-[ext_resource path="res://content/actors/player/PlayerStateMachine.gd" type="Script" id=2]
-[ext_resource path="res://content/actors/player/states/Idle.gd" type="Script" id=3]
-[ext_resource path="res://content/actors/player/states/Move.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"
@@ -38,15 +35,6 @@ position = Vector2( 64, 384 )
 
 [node name="SpawnPoint_Opponent" type="Node2D" parent="Gameplay_Container"]
 position = Vector2( 960, 192 )
-
-[node name="StateMachineTemp" type="Node" parent="Gameplay_Container"]
-script = ExtResource( 2 )
-
-[node name="Idle" type="Node" parent="Gameplay_Container/StateMachineTemp"]
-script = ExtResource( 3 )
-
-[node name="Move" type="Node" parent="Gameplay_Container/StateMachineTemp"]
-script = ExtResource( 4 )
 
 [node name="Intro_Container" type="Node" parent="."]
 

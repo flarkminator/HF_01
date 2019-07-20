@@ -3,6 +3,7 @@ extends Node2D
 #warning-ignore-all:return_value_discarded
 #warning-ignore-all:unused_argument
 
+#warning-ignore:unused_signal
 signal serve_ball(location, direction)
 
 var launch_pitch = deg2rad(25) # Degrees pitch
@@ -18,27 +19,27 @@ func _ready():
 	pass
 
 
-func _input(event):
-	if Input.is_action_just_pressed("ui_up"):
-		move_by(Vector2(1, 0))
-	if Input.is_action_just_pressed("ui_down"):
-		move_by(Vector2(-1, 0))
-	if Input.is_action_just_pressed("ui_right"):
-		move_by(Vector2(0, 1))
-	if Input.is_action_just_pressed("ui_left"):
-		move_by(Vector2(0, -1))
-	if Input.is_action_just_pressed("ui_accept"):
-		pass
-	if Input.is_action_just_pressed("ui_spawnball"):
-		launch_yaw = deg2rad(rand_range(-5,5))
-		launch_pitch = deg2rad(rand_range(10,10))
-		launch_power = 30
-		var launch_vector = Vector3(
-				cos(launch_yaw) * cos(launch_pitch),
-				sin(launch_yaw) * cos(launch_pitch),
-				sin(launch_pitch)
-				) * launch_power
-		emit_signal("serve_ball", position, launch_vector)
+#func _input(event):
+#	if Input.is_action_just_pressed("ui_up"):
+#		move_by(Vector2(1, 0))
+#	if Input.is_action_just_pressed("ui_down"):
+#		move_by(Vector2(-1, 0))
+#	if Input.is_action_just_pressed("ui_right"):
+#		move_by(Vector2(0, 1))
+#	if Input.is_action_just_pressed("ui_left"):
+#		move_by(Vector2(0, -1))
+#	if Input.is_action_just_pressed("ui_accept"):
+#		pass
+#	if Input.is_action_just_pressed("ui_spawnball"):
+#		launch_yaw = deg2rad(rand_range(-5,5))
+#		launch_pitch = deg2rad(rand_range(10,10))
+#		launch_power = 30
+#		var launch_vector = Vector3(
+#				cos(launch_yaw) * cos(launch_pitch),
+#				sin(launch_yaw) * cos(launch_pitch),
+#				sin(launch_pitch)
+#				) * launch_power
+#		emit_signal("serve_ball", position, launch_vector)
 
 func move_by(num_steps : Vector2):
 	var xPixels = num_steps.x * Global.PixelsPerTile_x / 2 + num_steps.y * Global.PixelsPerTile_x / 2
