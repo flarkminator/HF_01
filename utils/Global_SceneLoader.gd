@@ -32,7 +32,7 @@ func _deferred_goto(target, get_node_function):
 		4. Attach a call_back signal, so we can capture the moment it's added
 		5. Add it to the root
 	"""
-#	If we pass in a null target, it will simply delete the current scene
+	
 	if target == null:
 		if get_tree().current_scene:
 			get_tree().current_scene.free()

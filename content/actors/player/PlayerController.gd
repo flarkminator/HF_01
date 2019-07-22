@@ -15,19 +15,13 @@ var launch_vector = Vector3(
 		sin(launch_pitch)
 		) * launch_power
 
+onready var TweenNode = $Tween
+
 func _ready():
 	pass
 
 
 #func _input(event):
-#	if Input.is_action_just_pressed("ui_up"):
-#		move_by(Vector2(1, 0))
-#	if Input.is_action_just_pressed("ui_down"):
-#		move_by(Vector2(-1, 0))
-#	if Input.is_action_just_pressed("ui_right"):
-#		move_by(Vector2(0, 1))
-#	if Input.is_action_just_pressed("ui_left"):
-#		move_by(Vector2(0, -1))
 #	if Input.is_action_just_pressed("ui_accept"):
 #		pass
 #	if Input.is_action_just_pressed("ui_spawnball"):
@@ -41,11 +35,20 @@ func _ready():
 #				) * launch_power
 #		emit_signal("serve_ball", position, launch_vector)
 
+
 func move_by(num_steps : Vector2):
+	var new_position
 	var xPixels = num_steps.x * Global.PixelsPerTile_x / 2 + num_steps.y * Global.PixelsPerTile_x / 2
 	var yPixels = num_steps.y * Global.PixelsPerTile_y / 2 - num_steps.x * Global.PixelsPerTile_y / 2
-	position = Vector2(position.x + xPixels, position.y + yPixels)
+	new_position = Vector2(position.x + xPixels, position.y + yPixels)
+
+	TweenNode.interpolate_property( self, "position", position, new_position, 0.09, Tween.TRANS_BACK, Tween.EASE_OUT)
+	TweenNode.start()
 	GM_Match.move_time_forward(0.01)
+
+
+func _physics_update(delta):
+	pass
 
 func reset_state():
 	print("Ressetting the player to initial state")

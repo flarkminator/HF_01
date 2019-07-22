@@ -12,16 +12,19 @@ onready var controller = get_owner() # The actor we are attached to.
 
 func _ready():
 	print("PlayerStateMachine._ready()")
-	# !!! This only works if this script is attached to a node in the scene !!!
-	states_stack.push_front(get_child(0))
-	current_state = states_stack[0]
 	
+	# !!! This only works if this script is attached to a node in the scene !!!
 	states_map = {
 		'idle': $Idle,
 		'move': $Move,
 		'cinematic': $Cinematic,
 		'action_menu': $ActionMenu
 	}
+	
+	# We start in the cinematic state
+	states_stack.push_front(states_map['cinematic'])
+	current_state = states_stack[0]
+#	states_stack[0] = states_map['cinematic']
 	
 	for state in get_children():
 		state.connect('finished', self, '_change_state')

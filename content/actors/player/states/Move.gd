@@ -12,6 +12,8 @@ All state have the following functions:
 
 
 func enter(controller):
+	print("MOVE STATE: Enter")
+
 	if Input.is_action_just_pressed("ui_up"):
 		controller.move_by(Vector2(1, 0))
 	if Input.is_action_just_pressed("ui_down"):
@@ -21,7 +23,8 @@ func enter(controller):
 	if Input.is_action_just_pressed("ui_left"):
 		controller.move_by(Vector2(0, -1))
 	
-	print("MOVE STATE: Enter")
+	
+	yield(get_tree().create_timer(0.1), "timeout")
 	emit_signal("finished", "idle")
 
 

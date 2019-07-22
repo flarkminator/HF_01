@@ -24,5 +24,9 @@ func handle_input(event):
 		get_tree().set_input_as_handled()
 
 
+func update(delta):
+	pass
+
+
 func exit():
 	print("IDLE STATE: Exit")
