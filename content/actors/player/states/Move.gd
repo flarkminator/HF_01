@@ -9,11 +9,13 @@ All state have the following functions:
 	func update(delta):
 	func _on_animation_finished(anim_name):
 """
+var timer = 0
 
 
 func enter(controller):
-	print("MOVE STATE: Enter")
-
+#	print("MOVE STATE: Enter")
+	
+	timer = 0
 	if Input.is_action_just_pressed("ui_up"):
 		controller.move_by(Vector2(1, 0))
 	if Input.is_action_just_pressed("ui_down"):
@@ -22,19 +24,21 @@ func enter(controller):
 		controller.move_by(Vector2(0, 1))
 	if Input.is_action_just_pressed("ui_left"):
 		controller.move_by(Vector2(0, -1))
-	
-	
-	yield(get_tree().create_timer(0.1), "timeout")
-	emit_signal("finished", "idle")
-
-
 
 
 #warning-ignore:unused_argument
 func handle_input(event):
-	print("MOVE STATE: input")
+#	print("MOVE STATE: input")
+	pass
 
+
+func update(delta):
+	if timer < 0.1:
+		timer += delta
+	else:
+		emit_signal("finished", "idle")
 
 
 func exit():
-	print("MOVE STATE: Exit")
+#	print("MOVE STATE: Exit")
+	pass

@@ -13,19 +13,21 @@ All state have the following functions:
 
 #warning-ignore:unused_argument
 func enter(controller):
-	print("CINEMATIC STATE: Enter")
-	# TODO: Some better way of ending the cinematic state
-	GM_Match.connect("match_intro_finished", self, "_cinematic_finished")
+#	print("CINEMATIC STATE: Enter")
+	pass
 
 
 #warning-ignore:unused_argument
 func handle_input(event):
-	print("CINEMATIC STATE: input")
+#	print("CINEMATIC STATE: input")
+	pass
 
 
 func exit():
-	print("CINEMATIC STATE: Exit")
+#	print("CINEMATIC STATE: Exit")
+	pass
 
 
-func _cinematic_finished():
-	emit_signal("finished", "idle")
+func update(delta):
+	if not get_owner().get_in_cinematic():
+		emit_signal("finished", "idle")

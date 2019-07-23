@@ -6,16 +6,9 @@ extends Node2D
 #warning-ignore:unused_signal
 signal serve_ball(location, direction)
 
-var launch_pitch = deg2rad(25) # Degrees pitch
-var launch_yaw = deg2rad(5) # Degrees yaw
-var launch_power = 20 # Meters per second
-var launch_vector = Vector3(
-		cos(launch_yaw) * cos(launch_pitch),
-		sin(launch_yaw) * cos(launch_pitch),
-		sin(launch_pitch)
-		) * launch_power
-
+var _in_cinematic = false setget set_in_cinematic, get_in_cinematic
 onready var TweenNode = $Tween
+
 
 func _ready():
 	pass
@@ -52,3 +45,13 @@ func _physics_update(delta):
 
 func reset_state():
 	print("Ressetting the player to initial state")
+
+func set_in_cinematic(value):
+	_in_cinematic = value
+
+func get_in_cinematic():
+	return _in_cinematic
+
+
+
+

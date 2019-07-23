@@ -50,7 +50,7 @@ func set_active(value):
 func _unhandled_input(event):
 	if event.is_echo():
 		return
-	print("PlayerStateMachine._unhandled_input(" + event.as_text() + ")")
+#	print("PlayerStateMachine._unhandled_input(" + event.as_text() + ")")
 	current_state.handle_input(event)
 
 

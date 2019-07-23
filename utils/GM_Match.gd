@@ -94,6 +94,7 @@ func match_load_assets():
 #	_player.position = Vector2(_nav_mesh_starting_position.x + Global.PixelsPerTile_x/2, _nav_mesh_starting_position.y)
 	gameplay_container_node.add_child(_player)
 	_player.reset_state()
+	_player.set_in_cinematic(true)
 	
 	print("match assets loaded")
 
@@ -121,6 +122,7 @@ func match_intro():
 	var AnimPlayer = get_tree().current_scene.find_node("AnimationPlayer_ScreenFade")
 	AnimPlayer.play("Fade")
 	yield(AnimPlayer, "animation_finished")
+	_player.set_in_cinematic(false)
 	print("match intro done")
 	emit_signal("match_intro_finished")
 

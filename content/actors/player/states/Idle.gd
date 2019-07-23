@@ -13,11 +13,12 @@ All state have the following functions:
 
 #warning-ignore:unused_argument
 func enter(controller):
-	print("IDLE STATE: Enter")
+#	print("IDLE STATE: Enter")
+	pass
 
 
 func handle_input(event):
-	print("IDLE STATE: input")
+#	print("IDLE STATE: input")
 	if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down") \
 	or event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
 		emit_signal("finished", "move")
@@ -29,4 +30,5 @@ func update(delta):
 
 
 func exit():
-	print("IDLE STATE: Exit")
+#	print("IDLE STATE: Exit")
+	pass
