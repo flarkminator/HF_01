@@ -30,6 +30,11 @@ func _ready():
 
 
 func move_by(num_steps : Vector2):
+	var current_scene = get_tree().current_scene
+	if not current_scene.is_valid_move_on_nav(num_steps):
+		return
+	else:
+		current_scene.move_on_nav(num_steps)
 	var new_position
 	var xPixels = num_steps.x * Global.PixelsPerTile_x / 2 + num_steps.y * Global.PixelsPerTile_x / 2
 	var yPixels = num_steps.y * Global.PixelsPerTile_y / 2 - num_steps.x * Global.PixelsPerTile_y / 2

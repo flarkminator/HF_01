@@ -2,7 +2,6 @@
 
 [ext_resource path="res://content/levels/tennis_courts/court_grass.png" type="Texture" id=1]
 
-
 [node name="CourtScene_Grass" type="Node2D"]
 
 [node name="court_grass" type="Sprite" parent="."]

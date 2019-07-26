@@ -13,11 +13,6 @@ var _tennis_ball = _tennis_ball_asset.instance()
 
 # Player Variables
 var _player = preload("res://content/actors/player/Player.tscn").instance()
-var _nav_mesh_player_position = Vector2(9, 7)
-var _nav_mesh_opponent_position = Vector2(5, 5)
-var _nav_mesh_length = 10
-var _nav_mesh_width = 8
-var _nav_mesh_starting_position = Vector2(0, 0)
 var _opponent = ""
 
 # Match Variables
@@ -87,11 +82,8 @@ func match_load_assets():
 	level_container_node.add_child(load(_map).instance())
 	
 	# Load in the player, and position them onto the "NAV MESH"
-	var gameplay_container_node = current_scene.get_node("Gameplay_Container")
-	var spawn_point_node = current_scene.find_node("SpawnPoint_Player")
-	_nav_mesh_starting_position = spawn_point_node.position
-	_player.position = Global.steps_to_pixels(_nav_mesh_player_position, Vector2(_nav_mesh_starting_position.x + Global.PixelsPerTile_x / 2, _nav_mesh_starting_position.y))
-#	_player.position = Vector2(_nav_mesh_starting_position.x + Global.PixelsPerTile_x/2, _nav_mesh_starting_position.y)
+	var gameplay_container_node = current_scene.get_gameplay_container_node()
+	_player.position = current_scene.get_player_starting_position()
 	gameplay_container_node.add_child(_player)
 	_player.reset_state()
 	_player.set_in_cinematic(true)
