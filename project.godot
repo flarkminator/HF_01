@@ -27,8 +27,8 @@ Global_SceneLoader="*res://utils/Global_SceneLoader.gd"
 
 [display]
 
-window/size/width=1920
-window/size/height=1080
+window/size/width=960
+window/size/height=540
 
 [input]
 

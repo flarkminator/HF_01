@@ -18,7 +18,8 @@ func _ready():
 		'idle': $Idle,
 		'move': $Move,
 		'cinematic': $Cinematic,
-		'action_menu': $ActionMenu
+		'action_menu': $ActionMenu,
+		'serve': $Serve
 	}
 	
 	# We start in the cinematic state

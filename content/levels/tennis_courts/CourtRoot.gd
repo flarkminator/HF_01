@@ -9,9 +9,13 @@ var _nav_mesh_world_position = Vector2(0, 0)
 onready var _gameplay_container_node = get_node("Gameplay_Container") setget , get_gameplay_container_node
 onready var _spawn_point_node = find_node("SpawnPoint_Player") setget , get_spawn_point_node
 
+
 func _ready():
 	print("CourtRoot: _ready()")
 	pass
+
+func get_player_pixel_position() -> Vector2:
+	return Global.steps_to_pixels(_nav_mesh_player_position, Vector2(_nav_mesh_world_position.x + Global.PixelsPerTile_x / 2, _nav_mesh_world_position.y))
 
 func get_player_starting_position():
 	if is_instance_valid(_spawn_point_node):
@@ -20,7 +24,7 @@ func get_player_starting_position():
 		_spawn_point_node = find_node("SpawnPoint_Player")
 		_nav_mesh_world_position = _spawn_point_node.position
 	
-	return Global.steps_to_pixels(_nav_mesh_player_position, Vector2(_nav_mesh_world_position.x + Global.PixelsPerTile_x / 2, _nav_mesh_world_position.y))
+	return get_player_pixel_position()
 
 func get_opponent_starting_position():
 	pass
@@ -45,3 +49,12 @@ func get_gameplay_container_node() -> Node:
 
 func get_spawn_point_node() -> Node:
 	return _spawn_point_node
+
+func serve_ball(location, direction):
+	print("Yes, receiving serve signal")
+	var new_tennis_ball = GM_Match.get_ball()
+	new_tennis_ball.position = location
+	new_tennis_ball.velocity = direction
+	new_tennis_ball.reset_ball_height_to(0)
+	new_tennis_ball.is_top_spin = true if( randi() % 2 == 0 ) else false
+	_gameplay_container_node.add_child(new_tennis_ball)

@@ -17,14 +17,14 @@ var ball_height = 0.0
 var time_in_air = 0.0
 var starting_position
 
-var launch_pitch = deg2rad(25) # Degrees pitch
-var launch_yaw = deg2rad(5) # Degrees yaw
-var launch_power = 20 # Meters per second
-var launch_vector = Vector3(
-		cos(launch_yaw) * cos(launch_pitch),
-		sin(launch_yaw) * cos(launch_pitch),
-		sin(launch_pitch)
-		) * launch_power
+#var launch_pitch = deg2rad(25) # Degrees pitch
+#var launch_yaw = deg2rad(5) # Degrees yaw
+#var launch_power = 20 # Meters per second
+#var launch_vector = Vector3(
+#		cos(launch_yaw) * cos(launch_pitch),
+#		sin(launch_yaw) * cos(launch_pitch),
+#		sin(launch_pitch)
+#		) * launch_power
 
 
 

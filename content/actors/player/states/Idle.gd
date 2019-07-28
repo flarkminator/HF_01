@@ -23,6 +23,10 @@ func handle_input(event):
 	or event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
 		emit_signal("finished", "move")
 		get_tree().set_input_as_handled()
+	
+	if event.is_action_pressed("ui_spawnball"):
+		emit_signal("finished", "serve")
+		get_tree().set_input_as_handled()
 
 
 func update(delta):

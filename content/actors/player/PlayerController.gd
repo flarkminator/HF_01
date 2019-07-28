@@ -13,22 +13,6 @@ onready var TweenNode = $Tween
 func _ready():
 	pass
 
-
-#func _input(event):
-#	if Input.is_action_just_pressed("ui_accept"):
-#		pass
-#	if Input.is_action_just_pressed("ui_spawnball"):
-#		launch_yaw = deg2rad(rand_range(-5,5))
-#		launch_pitch = deg2rad(rand_range(10,10))
-#		launch_power = 30
-#		var launch_vector = Vector3(
-#				cos(launch_yaw) * cos(launch_pitch),
-#				sin(launch_yaw) * cos(launch_pitch),
-#				sin(launch_pitch)
-#				) * launch_power
-#		emit_signal("serve_ball", position, launch_vector)
-
-
 func move_by(num_steps : Vector2):
 	var current_scene = get_tree().current_scene
 	if not current_scene.is_valid_move_on_nav(num_steps):
@@ -56,7 +40,6 @@ func set_in_cinematic(value):
 
 func get_in_cinematic():
 	return _in_cinematic
-
 
 
 
