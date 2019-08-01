@@ -57,3 +57,4 @@ script = ExtResource( 9 )
 script = ExtResource( 10 )
 
 [node name="Tween" type="Tween" parent="."]
+
