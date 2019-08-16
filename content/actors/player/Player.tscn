@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://content/actors/player/PlayerController.gd" type="Script" id=1]
 [ext_resource path="res://content/actors/player/sprites/hero_32x32.png" type="Texture" id=2]
@@ -8,9 +8,6 @@
 [ext_resource path="res://content/actors/player/states/Cinematic.gd" type="Script" id=6]
 [ext_resource path="res://content/actors/player/states/ActionMenu.gd" type="Script" id=7]
 [ext_resource path="res://content/actors/player/states/Serve.gd" type="Script" id=8]
-
-[sub_resource type="StreamTexture" id=1]
-load_path = "res://.import/character_shadow.png-77fcc1b34a4d1fc198c31d0512fd2328.stex"
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -28,14 +25,8 @@ __meta__ = {
 
 [node name="Pivot" type="Position2D" parent="."]
 
-[node name="Shadow" type="Sprite" parent="Pivot"]
-visible = false
-modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
-position = Vector2( 5.083, -28.09 )
-texture = SubResource( 1 )
-region_rect = Rect2( -1, -1, 102, 105 )
-
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Pivot"]
+position = Vector2( 4, -8 )
 frames = SubResource( 2 )
 animation = "hero_forehand_hit"
 
@@ -59,3 +50,4 @@ script = ExtResource( 7 )
 script = ExtResource( 8 )
 
 [node name="Tween" type="Tween" parent="."]
+

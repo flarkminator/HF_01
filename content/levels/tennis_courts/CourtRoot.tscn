@@ -27,14 +27,13 @@ script = ExtResource( 1 )
 [node name="Gameplay_Container" type="Node" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="Gameplay_Container"]
-position = Vector2( 480, 270 )
-current = true
+position = Vector2( 320, 180 )
 
 [node name="SpawnPoint_Player" type="Node2D" parent="Gameplay_Container"]
-position = Vector2( 64, 384 )
+position = Vector2( 110, 240 )
 
 [node name="SpawnPoint_Opponent" type="Node2D" parent="Gameplay_Container"]
-position = Vector2( 960, 192 )
+position = Vector2( 556.006, 148.667 )
 
 [node name="UI_Container" type="Node" parent="."]
 
@@ -43,10 +42,9 @@ position = Vector2( 960, 192 )
 [node name="Intro_Container" type="Node" parent="."]
 
 [node name="ScreenOverlay" type="ColorRect" parent="Intro_Container"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -960.0
-margin_bottom = -540.0
 color = Color( 0, 0, 0.12549, 1 )
 
 [node name="AnimationPlayer_ScreenFade" type="AnimationPlayer" parent="Intro_Container/ScreenOverlay"]

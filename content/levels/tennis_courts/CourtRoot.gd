@@ -1,6 +1,6 @@
 extends Node2D
 
-var _nav_mesh_player_position = Vector2(9, 7)
+var _nav_mesh_player_position = Vector2(0, 0)
 var _nav_mesh_opponent_position = Vector2(5, 5)
 var _nav_mesh_length = 9
 var _nav_mesh_width = 7

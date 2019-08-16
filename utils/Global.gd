@@ -2,9 +2,9 @@ extends Node
 #warning-ignore-all:unused_class_variable
 #warning-ignore-all:unused_argument
 
-var PixelsPerTile_x = 64
-var PixelsPerTile_y = 32
-var PixelsPerMeter = 26.095
+var PixelsPerTile_x = 64 * 0.625
+var PixelsPerTile_y = 32 * 0.625
+var PixelsPerMeter = 26.095 * 0.625
 
 var angle_of_tileMap = deg2rad(26.57) # from degrees into radians
 var meter2pixel_scalar = cos(angle_of_tileMap)

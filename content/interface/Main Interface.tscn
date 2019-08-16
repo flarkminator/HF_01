@@ -30,17 +30,18 @@ margin_bottom = 110.0
 [node name="HBoxContainer" type="HBoxContainer" parent="Match_TopLeft_Interface"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = -40.0
 
 [node name="ColorRect" type="ColorRect" parent="Match_TopLeft_Interface/HBoxContainer"]
-margin_right = 100.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 100, 100 )
+margin_right = 60.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
 color = Color( 0.219608, 1, 0, 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Match_TopLeft_Interface/HBoxContainer"]
-margin_left = 104.0
-margin_right = 155.0
-margin_bottom = 100.0
+margin_left = 64.0
+margin_right = 115.0
+margin_bottom = 60.0
 
 [node name="StaminaLabel" type="Label" parent="Match_TopLeft_Interface/HBoxContainer/VBoxContainer"]
 margin_right = 51.0
@@ -82,9 +83,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -150.0
-margin_top = -150.0
-rect_min_size = Vector2( 150, 150 )
+margin_left = -60.0
+margin_top = -60.0
+rect_min_size = Vector2( 60, 60 )
 color = Color( 0.533333, 0.243137, 0.141176, 1 )
 
 [node name="Match_Center_Interface" type="Control" parent="."]
