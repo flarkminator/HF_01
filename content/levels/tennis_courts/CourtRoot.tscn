@@ -27,10 +27,11 @@ script = ExtResource( 1 )
 [node name="Gameplay_Container" type="Node" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="Gameplay_Container"]
-position = Vector2( 320, 180 )
+visible = false
+position = Vector2( 240, 135 )
 
 [node name="SpawnPoint_Player" type="Node2D" parent="Gameplay_Container"]
-position = Vector2( 110, 240 )
+position = Vector2( 32, 192 )
 
 [node name="SpawnPoint_Opponent" type="Node2D" parent="Gameplay_Container"]
 position = Vector2( 556.006, 148.667 )
@@ -51,4 +52,3 @@ color = Color( 0, 0, 0.12549, 1 )
 anims/Fade = SubResource( 1 )
 
 [node name="Outtro_Container" type="Node" parent="."]
-
