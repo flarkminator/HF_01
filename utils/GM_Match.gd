@@ -57,7 +57,7 @@ func new_match(level, opponent):
 
 	# "goto_scene__" is a deferred function call, so we have no idea when it
 	# will actually be called.
-	# @see Global_SceneLoader to see where the signal "scene_set_as_current" is sent
+	# @see Global_SceneLoader to see where and when the signal "scene_set_as_current" is sent
 	Global_SceneLoader.goto_scene_packed(_root_scene)
 	yield(Global_SceneLoader, "scene_set_as_current")
 	

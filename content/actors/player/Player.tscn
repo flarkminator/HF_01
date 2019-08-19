@@ -9,7 +9,7 @@
 [ext_resource path="res://content/actors/player/states/ActionMenu.gd" type="Script" id=7]
 [ext_resource path="res://content/actors/player/states/Serve.gd" type="Script" id=8]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
@@ -27,7 +27,7 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Pivot"]
 position = Vector2( 4, -8 )
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 animation = "hero_forehand_hit"
 
 [node name="PlayerStateMachine" type="Node" parent="."]
@@ -50,4 +50,3 @@ script = ExtResource( 7 )
 script = ExtResource( 8 )
 
 [node name="Tween" type="Tween" parent="."]
-

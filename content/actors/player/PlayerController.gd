@@ -26,7 +26,7 @@ func move_by(num_steps : Vector2):
 
 	TweenNode.interpolate_property( self, "position", position, new_position, 0.09, Tween.TRANS_BACK, Tween.EASE_OUT)
 	TweenNode.start()
-	GM_Match.move_time_forward(0.01)
+	GM_Match.move_time_forward(0.01) # Does nothing right now
 
 
 func _physics_update(delta):
