@@ -49,5 +49,4 @@ margin_bottom = 115.794
 rect_min_size = Vector2( 150, 30 )
 custom_fonts/font = SubResource( 2 )
 text = "Start Game"
-
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
